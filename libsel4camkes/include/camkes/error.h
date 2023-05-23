@@ -227,7 +227,6 @@ camkes_error_action_t camkes_error(camkes_error_t *e) COLD;
  *    statement).
  */
 #define ERR(handler, edata, action) ({ \
-            COLD_PATH(); \
             camkes_error_t _e = edata; \
             _e.filename = __FILE__; \
             _e.lineno = __LINE__; \
