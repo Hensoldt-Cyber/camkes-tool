@@ -231,20 +231,11 @@ camkes_error_action_t camkes_error(camkes_error_t *e) COLD;
             _e.filename = __FILE__; \
             _e.lineno = __LINE__; \
             switch (handler(&_e)) { \
-                case CEA_DISCARD: \
-                    action; \
-                    UNREACHABLE(); \
-                case CEA_IGNORE: \
-                    break; \
-                case CEA_HALT: \
-                    halt(); \
-                    /* If we return we'll just fall through. */ \
-                case CEA_ABORT: \
-                    abort(); \
-                    /* In case we return */ \
-                    while(1); \
-                default: \
-                    UNREACHABLE(); \
+                case CEA_DISCARD: action; UNREACHABLE(); \
+                case CEA_IGNORE: break; \
+                case CEA_ABORT: abort(); UNREACHABLE(); \
+                case CEA_HALT: /* fall though */ \
+                default: halt(); UNREACHABLE(); \
             } \
         })
 
